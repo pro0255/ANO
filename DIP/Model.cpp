@@ -6,6 +6,107 @@ void Model::fit(vector<Object*> train)
 	this->label_2_ethalon = Calculator::calculate_ethalons(train);
 }
 
+void Model::fit(vector<Object*> train_objects, int k, float threshold)
+{
+	vector<int> selection_index;
+	int nelems = k;
+
+	while (selection_index.size() < nelems) {
+		int randomIndex = rand() % train_objects.size();
+		if (find(selection_index.begin(), selection_index.end(), randomIndex) == selection_index.end()) {
+			selection_index.push_back(randomIndex);
+		}
+	}
+
+	vector<vector<float>> centroids;
+
+	for (int i = 0; i < selection_index.size(); i++)
+	{
+		centroids.push_back(Calculator::create_feature_point(*train_objects.at(i)));
+	}
+
+	while (true) {
+		vector<vector<Object*>> centroid_objects;
+		for (int i = 0; i < k; i++)
+		{
+			centroid_objects.push_back(vector<Object*> {});
+		}
+
+		for (int i = 0; i < train_objects.size(); i++)
+		{
+			auto current = train_objects.at(i);
+			auto current_feature_point = Calculator::create_feature_point(*current);
+			int min_index = -1;
+			float min_distance = -1;
+
+			for (int j = 0; j < centroids.size(); j++)
+			{
+				auto d = Calculator::calculate_eucladian_distance(current_feature_point, centroids.at(j));
+				if (min_index == -1 || d < min_distance) {
+					min_index = j;
+					min_distance = d;
+				}
+			}
+			centroid_objects.at(min_index).push_back(current);
+		}
+
+		//Update centroids
+		vector<vector<float>> new_centroids;
+		for (int i = 0; i < k; i++)
+		{
+			new_centroids.push_back(vector<float> {});
+			for (int j = 0; j < centroids.at(0).size(); j++)
+			{
+				float sum = 0;
+				for (int m = 0; m < centroid_objects.at(i).size(); m++)
+				{
+					auto v = Calculator::create_feature_point(*centroid_objects.at(i).at(m));
+					sum += v.at(j);
+				}
+				auto mean = sum / float(centroid_objects.at(i).size());
+				new_centroids.at(i).push_back(mean);
+			}
+		}
+
+		for (int i = 0; i < centroids.size(); i++)
+		{
+			cout << centroid_objects.at(i).size() << endl;
+		}
+		cout << endl;
+
+
+
+		bool isBreaking = false;
+		for (int i = 0; i < new_centroids.size(); i++)
+		{
+			if (new_centroids.at(i) == centroids.at(i) || Calculator::calculate_eucladian_distance(new_centroids.at(i), centroids.at(i)) < threshold) {
+				cout << "same" << endl;
+				isBreaking = true;
+			}
+			else {
+				cout << "different" << endl;
+				isBreaking = false;
+				break;
+			}
+		}
+
+		centroids = new_centroids;
+		if (isBreaking) {
+			break;
+		}
+
+	}
+
+
+	map<int, vector<float>> label_2_ethalon;
+	for (int i = 0; i < centroids.size(); i++)
+	{
+		label_2_ethalon.insert(pair<int, vector<float>>(i, centroids.at(i)));
+	}
+
+	this->label_2_ethalon = label_2_ethalon;
+}
+
 void Model::predict(vector<Object*> test)
 {
 	for (auto &o : test) {

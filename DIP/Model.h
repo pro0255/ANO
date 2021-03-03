@@ -15,6 +15,7 @@ class Model
 public:
 	map<int, vector<float>> label_2_ethalon;
 	void fit(vector<Object*> train);
+	void fit(vector<Object*> train_objects, int k, float threshold);
 	void predict(vector<Object*> test);
 
 private:

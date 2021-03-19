@@ -160,6 +160,7 @@
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="FloodFill.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="NeuralNetwork.h" />
     <ClInclude Include="ns_test.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Processor.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="DIP.cpp" />
     <ClCompile Include="FloodFill.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="NeuralNetwork.cpp" />
     <ClCompile Include="ns_test.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Processor.cpp" />

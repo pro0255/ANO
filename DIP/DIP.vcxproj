@@ -156,9 +156,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="backprop.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="FloodFill.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="ns_test.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Processor.h" />
     <ClInclude Include="Shape.h" />
@@ -167,10 +169,12 @@
     <ClInclude Include="Thresholder.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="backprop.cpp" />
     <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="DIP.cpp" />
     <ClCompile Include="FloodFill.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ns_test.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Processor.cpp" />
     <ClCompile Include="stdafx.cpp">

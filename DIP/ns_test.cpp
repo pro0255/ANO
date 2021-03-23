@@ -34,9 +34,15 @@ void train(NN* nn)
 		setInput(nn, trainingSet[i%n]);
 		feedforward(nn);
 		error = backpropagation(nn, &trainingSet[i%n][nn->n[0]]);
+		if (i % 10000 == 0) {
+			printf("\nerr=%0.3f iteration=%d", error, i);
+		}
 		i++;
-		printf("\rerr=%0.3f", error);
+
 	}
+
+	printf("\nerr=%0.3f iteration=%d", error, i);
+
 	printf(" (%d iterations)\n", i);
 
 	for (int i = 0; i < n; i++) {

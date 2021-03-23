@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "NeuralNetwork.h"
 
-#define VERBOSE false
+#define VERBOSE true
 
 NeuralNetwork::NeuralNetwork(int n, int h, int o, int iterations, float t = 0.001)
 {

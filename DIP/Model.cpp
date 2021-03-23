@@ -18,6 +18,7 @@ void Model::fit(vector<Object*> train_objects, int k, float threshold)
 		}
 	}
 
+	int counter = 0;
 	vector<vector<float>> centroids;
 
 	for (int i = 0; i < selection_index.size(); i++)
@@ -68,11 +69,36 @@ void Model::fit(vector<Object*> train_objects, int k, float threshold)
 			}
 		}
 
+		//for (int i = 0; i < centroids.size(); i++)
+		//{
+		//	cout << centroid_objects.at(i).size() << endl;
+		//}
+		//cout << endl;
+
 		for (int i = 0; i < centroids.size(); i++)
 		{
-			cout << centroid_objects.at(i).size() << endl;
+			cout << "Old centroid " << i << endl;
+			for (int j = 0; j < centroids.at(i).size(); j++)
+			{
+				cout << centroids.at(i).at(j) << ';';
+			}
+			cout << endl;
 		}
-		cout << endl;
+
+
+		for (int i = 0; i < new_centroids.size(); i++)
+		{
+			cout << "New centroid " << i << endl;
+			for (int j = 0; j < new_centroids.at(i).size(); j++)
+			{
+				cout << new_centroids.at(i).at(j) << ';';
+			}
+			cout << endl;
+
+		}
+
+
+
 
 
 
@@ -80,11 +106,11 @@ void Model::fit(vector<Object*> train_objects, int k, float threshold)
 		for (int i = 0; i < new_centroids.size(); i++)
 		{
 			if (new_centroids.at(i) == centroids.at(i) || Calculator::calculate_eucladian_distance(new_centroids.at(i), centroids.at(i)) < threshold) {
-				cout << "same" << endl;
+				//cout << "same" << endl;
 				isBreaking = true;
 			}
 			else {
-				cout << "different" << endl;
+				//cout << "different" << endl;
 				isBreaking = false;
 				break;
 			}
@@ -94,6 +120,8 @@ void Model::fit(vector<Object*> train_objects, int k, float threshold)
 		if (isBreaking) {
 			break;
 		}
+		counter++;
+		cout << "\nGeneration -> " << counter << endl;
 
 	}
 

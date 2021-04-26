@@ -60,19 +60,11 @@ public:
 	SLIC();
 	~SLIC();
 
-	cv::Mat& run(unsigned int K, cv::Mat& input, float threshold, float m, int epochs);
-	void run2(cv::Mat image, int epochs, int k);
+	void run(cv::Mat image, int epochs, int k);
 	void drawCentroids(vector<Point> centroids, cv::Mat& input, int epoch);
 	vector<Point> createPoints(cv::Mat& input);
 	vector<Point> initCentroids(cv::Mat& input);
 
-
-
-
-
-	vector<vector<float>> init(int S, int K, cv::Mat& input);
-	void drawPoints(vector<vector<float>> centroids, cv::Mat& input);
-	float distance(vector<float> a, vector<float> b, float m, float S);
 };
 
 
